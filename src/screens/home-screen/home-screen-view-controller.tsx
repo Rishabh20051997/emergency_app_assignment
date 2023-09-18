@@ -15,10 +15,15 @@ const useHomeScreenViewController = () => {
 
   // used to show emergency pop up after 5 sec
   useEffect(() => {
-    setTimeout(() => {
+    const subs = setTimeout(() => {
       modalShowTime.current = new Date().toISOString()
       updateModalVisibility(true)
+      clearTimeout(subs)
     }, 5000);
+
+    return () => {
+      clearTimeout(subs)
+    }
   }, [isModalVisible, updateModalVisibility])
 
 
